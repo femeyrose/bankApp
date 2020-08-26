@@ -1,0 +1,25 @@
+
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">Wecome to SBT Bank</div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="accno">Account Number</label>
+                    <input  (change)="acnoChange($event)" type="text" class="form-control" id="accno">
+
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password</label>
+                    <input (change)="pwdChange($event)" type="password" class="form-control" id="pwd">
+                </div>
+
+                <button type="button" class="btn btn-primary" (click)="login()">Submit</button>
+
+            </div>
+
+        </div>
+
+    </div>
