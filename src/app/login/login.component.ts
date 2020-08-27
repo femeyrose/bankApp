@@ -14,24 +14,26 @@ export class LoginComponent implements OnInit {
     1005: { name: "user5", age: 12, pin: 1005, password: 1238, balance: 1000 },
 
   }
-acno=""
+acno="" //this name should be same in name given for the ngModel in the html
 pwd=""
   constructor() { }
 
+  //the below method is event binding
   acnoChange(event){
-    //alert("acnoChange change")
-    this.acno=event.target.value
-  }
-  pwdChange(event){
+    alert("acnoChange change")
+    this.acno=event.target.value //this is like taking values using id
+ }
+ pwdChange(event){
     this.pwd=event.target.value;
   }
   ngOnInit(): void {
   }
 
+//now the below method is template referencing
   login(){
     var acno = parseInt(this.acno)
     //parseInt is to avoid the string input declaration above (in the try catch)
-    var pass = this.pwd
+    var pass =this.pwd
 
     let data = this.details;
     if (acno in data) {
