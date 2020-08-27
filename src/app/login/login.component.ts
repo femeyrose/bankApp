@@ -14,9 +14,12 @@ export class LoginComponent implements OnInit {
     1005: { name: "user5", age: 12, pin: 1005, password: 1238, balance: 1000 },
 
   }
-acno="" //this name should be same in name given for the ngModel in the html
-pwd=""
-  constructor() { }
+acno="1234" //this name should be same in name given for the ngModel in the html
+pwd="" //whenever the ngModel=acno value changes, this will reflect in these variables
+  //any changes in ts/html files will affect the other, that is called two way data binding
+  //eg:if acno="1234" given here , in browser this value appear automatically when it runs
+
+constructor() { }
 
   //the below method is event binding
   acnoChange(event){
