@@ -8,15 +8,24 @@
             <div class="col">
                 <div class="form-group">
                     <label for="accno">Account Number</label>
-                    <input  (change)="acnoChange($event)" type="text" class="form-control" id="accno">
+                    <!-- this method is event binding -->
+                    <!-- <input  (change)="acnoChange($event)" type="text" class="form-control" id="accno"> -->
+                    <!-- this method is template referencing -->
+                    <!-- <input  #acno type="text" class="form-control" id="accno"> -->
+                   <!-- ngModel Method -->
+                   <input  [(ngModel)]="acno" name="acno" type="text" class="form-control" id="accno">
+
 
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password</label>
-                    <input (change)="pwdChange($event)" type="password" class="form-control" id="pwd">
+                    <!-- <input (change)="pwdChange($event)" type="password" class="form-control" id="pwd"> -->
+                    <!-- <input  #pwd type="password" class="form-control" id="pwd"> -->
+                    <input [(ngModel)]="pwd" name="pwd" type="password" class="form-control" id="pwd">
                 </div>
 
-                <button type="button" class="btn btn-primary" (click)="login()">Submit</button>
+                <!-- <button type="button" class="btn btn-primary" (click)="login()">Submit</button> -->
+                  <button type="button" class="btn btn-primary" (click)="login()">Submit</button>
 
             </div>
 
