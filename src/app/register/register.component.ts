@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../service/data.service'
 
 @Component({
   selector: 'app-register',
@@ -9,16 +10,26 @@ export class RegisterComponent implements OnInit {
 
   name=""
   acno=""
+  pin=""
   pwd=""
-  constructor() { }
+ 
 
-  ngOnInit(): void {
-  }
+  constructor(private dataService:DataService) { }
+
+  ngOnInit(): void {}
  
   register(){
+    const result = this.dataService.register(this.name,this.acno,this.pin,this.pwd);
+      if(result){
+        alert("successfully created account.Please login")
+      }
+
+    
+
 
    
 
   }
 
 }
+
