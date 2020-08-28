@@ -1,2 +1,41 @@
-<p>register works!</p>
-<a routerLink="">Login</a>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">Register an accountk</div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form (ngSubmit)="register()">
+            <div class="form-group">
+
+                <label for="nam">Name</label>
+
+                <input [(ngModel)]="name" name="name" type="text" class="form-control" id="nam">
+            </div>
+
+            <div class="form-group">
+
+                <label for="accno">Account Number</label>
+
+                <input [(ngModel)]="acno" name="acno" type="text" class="form-control" id="accno">
+            </div>
+
+            <div class="form-group">
+                <label for="pwd">Password</label>
+
+                <input [(ngModel)]="pwd" name="pwd" type="password" class="form-control" id="pwd">
+            </div>
+
+<!-- for the ngSubmit in the form the button type should be="submit", so on click subit it will redirect -->
+
+            <button type="submit" class="btn btn-primary" >Submit</button>
+
+            <!-- to give link to navigate to the dashboard ortherwise we can import router and use navigaeByUrl-->
+
+            <a routerLink="">Back to Login</a>
+        </form>
+        </div>
+
+    </div>
+
+</div>

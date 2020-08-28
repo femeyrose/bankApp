@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; //router should be import from the angular core to redirect to the page
+import { DataService } from '../service/data.service'
+
 
 @Component({
   selector: 'app-login',
@@ -7,21 +9,18 @@ import { Router } from '@angular/router'; //router should be import from the ang
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  details = {
-    1001: { name: "user1", age: 12, pin: 1001, password: "1234*#%a", balance: 1000 },
-    1002: { name: "user2", age: 12, pin: 1002, password: 1235, balance: 1000 },
-    1003: { name: "user3", age: 12, pin: 1003, password: 1236, balance: 1000 },
-    1004: { name: "user4", age: 12, pin: 1004, password: 1237, balance: 1000 },
-    1005: { name: "user5", age: 12, pin: 1005, password: 1238, balance: 1000 },
+  
 
-  }
 acno="" //this name should be same in name given for the ngModel in the html
 pwd="" //whenever the ngModel=acno value changes, this will reflect in these variables
   //any changes in ts/html files will affect the other, that is called two way data binding
   //eg:if acno="1234" given here , in browser this value appear automatically when it runs
 
 //dependancy injection: 
-  constructor(private router:Router) { } //first name is name the name we given , second router is imported
+  constructor(private router:Router,
+    private dataService:DataService) { } //first name is name the name we given , second router is imported
+//now the details object can be moved to data service
+//after adding the DataService here and importing it
 
   //the below method is event binding
   acnoChange(event){
@@ -40,7 +39,7 @@ pwd="" //whenever the ngModel=acno value changes, this will reflect in these var
     //parseInt is to avoid the string input declaration above (in the try catch)
     var pass =this.pwd
 
-    let data = this.details;
+    let data = this.dataService.details;
     if (acno in data) {
       if (pass == data[acno].password) {
         alert("successfull login")
