@@ -11,6 +11,7 @@
                     <label for="accno">Account Number</label>
                     <!-- this method is event binding -->
                     <!-- <input  (change)="acnoChange($event)" type="text" class="form-control" id="accno"> -->
+
                     <!-- this method is template referencing -->
                     <!-- <input  #acno type="text" class="form-control" id="accno"> -->
                    
@@ -24,13 +25,19 @@
                 <div class="form-group">
                     <label for="pwd">Password</label>
                     <!-- <input (change)="pwdChange($event)" type="password" class="form-control" id="pwd"> -->
+
                     <!-- <input  #pwd type="password" class="form-control" id="pwd"> -->
+
                     <input [(ngModel)]="pwd" name="pwd" type="password" class="form-control" id="pwd">
                 </div>
 
                 <!-- <button type="button" class="btn btn-primary" (click)="login()">Submit</button> -->
+
                   <button type="button" class="btn btn-primary" (click)="login()">Submit</button>
 
+                  <!-- to give link to navigate to the dashboard ortherwise we can import router and use navigaeByUrl-->
+
+                  <a routerLink="dashboard">Dashboard</a>
             </div>
 
         </div>

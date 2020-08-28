@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; //router should be import from the angular core to redirect to the page
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,13 @@ export class LoginComponent implements OnInit {
     1005: { name: "user5", age: 12, pin: 1005, password: 1238, balance: 1000 },
 
   }
-acno="1234" //this name should be same in name given for the ngModel in the html
+acno="" //this name should be same in name given for the ngModel in the html
 pwd="" //whenever the ngModel=acno value changes, this will reflect in these variables
   //any changes in ts/html files will affect the other, that is called two way data binding
   //eg:if acno="1234" given here , in browser this value appear automatically when it runs
 
-constructor() { }
+//dependancy injection: 
+  constructor(private router:Router) { } //first name is name the name we given , second router is imported
 
   //the below method is event binding
   acnoChange(event){
@@ -42,7 +44,9 @@ constructor() { }
     if (acno in data) {
       if (pass == data[acno].password) {
         alert("successfull login")
-        window.location.href = "user1.html"
+       // window.location.href = "user1.html"
+       //to navigate to the page
+       this.router.navigateByUrl("dashboard")
       }
       else {
         alert("incorrect login")

@@ -1,1 +1,32 @@
-<p>dashboard works!</p>
+<h1>Welcome User</h1>
+    <div class="container">
+        
+        <div class="row">
+            
+            <div class="col"> 
+                <h4 id="depo">Deposit</h4>
+                <table>
+
+                    <tr>
+                        <td>accno</td>
+                        <td><input (change)="acnoChange($event)" type="text" id="acno"></td>
+                    </tr>
+
+                    <tr>
+                        <td>pin</td>
+                        <td><input (change)="pinChange($event)" type="text" id="pin"></td>
+                    </tr>
+                    <tr>
+                        <td>amount</td>
+                        <td><input (change)="amtChange($event)" type="text" id="amount"></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" class="btn btn-primary" (click)="deposit()" value="proceed">Proceed</button>
+                        </td></tr>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
