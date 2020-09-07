@@ -22,6 +22,7 @@ export class DataService {
       return false; //return false when register fn is called from the register.ts
 
     }
+    //here return false will stop the execution of the remaining part
 
     this.details[acno]={
       name,
@@ -31,7 +32,7 @@ export class DataService {
       balance:0
     }
     console.log("after",this.details)
-    return false;
+    return true;
   }
 }
 
