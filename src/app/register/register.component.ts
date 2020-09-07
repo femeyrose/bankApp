@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -10,45 +10,67 @@ import { FormBuilder } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  name="1234"
-  acno=""
-  pin=""
-  pwd=""
- 
-registerForm=this.fb.group({
-name:[''],
-acno:[''],
-pwd:[''],
-pin:['']    
-});
+  name = ""
+  acno = ""
+  pin = ""
+  pwd = ""
 
-//all these are taken as string default value
+  registerForm = this.fb.group({
+    name: ['', [Validators.required]],
+    acno: ['', [Validators.required, Validators.minLength(3)]],
+    pwd: ['', [Validators.required]],
+    pin: ['', [Validators.required]]
+  });
 
+  //validators can been taken from angular
+  //validators.required only check whether any empty fields exists
 
-  constructor(private dataService:DataService,
-    private router:Router,
-    private fb:FormBuilder) { }
-
-  ngOnInit(): void {}
- 
-register(){
-console.log(this.registerForm.value)
-//this is to get the values that we entered, can been seen in the browser's console
+  //all these are taken as string default value
 
 
+  constructor(private dataService: DataService,
+    private router: Router,
+    private fb: FormBuilder) { }
 
-    // const result = this.dataService.register(this.name,this.acno,this.pin,this.pwd);
-    //   if(result){
-    //     alert("successfully created account.Please login")
-    //     this.router.navigateByUrl("");
-    //   }
+  ngOnInit(): void { }
 
-    //the above willn't works for the reactive Form
+  getError(field){
+    return this.registerForm.get(field).errors
+  }
 
-    
+  //for giving the validation checking in multiple times  like below if condition
+  // we use this get Error, which takes pin,pwd, accno, name for validation check
+  // in the getError(field), field takes the values (pin,name,pwd,acno)
+
+  register() {
+    //console.log(this.registerForm.value)
+    //this is to get the values that we entered, can been seen in the browser's console
+
+// if(this.registerForm.get('name').errors)
+// {
+//   alert("Name is invalid")
+// }
+
+//giving condition for the validation check of 'Name' field
+//this condition is for the name field only
+//for having all the fields check use getError(name) commonly
 
 
-   
+
+    if (this.registerForm.valid) {
+      const result = this.dataService.register(this.registerForm.value.name, this.registerForm.value.acno, this.registerForm.value.pin, this.registerForm.value.pwd);
+      if (result) 
+      {
+        alert("successfully created account.Please login")
+        this.router.navigateByUrl("");
+      }
+    }
+    else 
+    {
+      alert("form is invalid");
+    }
+    //to check the validation in the browser 
+    //the above willn't works for the reactive Form until we add 'this.registerForm.value.name etc
 
   }
 
