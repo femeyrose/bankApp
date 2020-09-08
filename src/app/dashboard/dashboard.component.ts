@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(private dataService:DataService) { }
+  constructor(public dataService:DataService) { }
 
   acnoChange(event) {
     this.acno = event.target.value;

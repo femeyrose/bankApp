@@ -1,11 +1,11 @@
-
-    <div class="container">
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">Wecome to SBT Bank</div>
-        </div>
-        <div class="row">
-            <div class="col">
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">Wecome to SBT Bank</div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <div class="form-group">
                     <!-- {{acno}} -->
                     <label for="accno">Account Number</label>
@@ -14,12 +14,13 @@
 
                     <!-- this method is template referencing -->
                     <!-- <input  #acno type="text" class="form-control" id="accno"> -->
-                   
+
                     <!-- ngModel Method -->
-                   <input  [(ngModel)]="acno" name="acno" type="text" class="form-control" id="accno">
-                   
-                   <!-- property binding -->
-                   <!-- <input  [value]="acno" name="acno" type="text" class="form-control" id="accno"> -->
+                    <!-- <input  [(ngModel)]="acno" name="acno" type="text" class="form-control" id="accno"> -->
+                    <input formControlName="acno" name="acno" type="text" class="form-control" id="accno">
+                    <div *ngIf="getError('acno')" class=error>acno is invalid</div>
+                    <!-- property binding -->
+                    <!-- <input  [value]="acno" name="acno" type="text" class="form-control" id="accno"> -->
 
                 </div>
                 <div class="form-group">
@@ -28,18 +29,22 @@
 
                     <!-- <input  #pwd type="password" class="form-control" id="pwd"> -->
 
-                    <input [(ngModel)]="pwd" name="pwd" type="password" class="form-control" id="pwd">
+                    <!-- <input [(ngModel)]="pwd" name="pwd" type="password" class="form-control" id="pwd"> -->
+                    <input formControlName="pwd" name="pwd" type="password" class="form-control" id="pwd">
+                    <div *ngIf="getError('pwd')" class=error>pwd is invalid</div>
                 </div>
 
                 <!-- <button type="button" class="btn btn-primary" (click)="login()">Submit</button> -->
 
-                  <button type="button" class="btn btn-primary" (click)="login()">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
 
-                  <!-- to give link to navigate to the dashboard ortherwise we can import router and use navigaeByUrl-->
+                <!-- to give link to navigate to the dashboard ortherwise we can import router and use navigaeByUrl-->
+              
 
-                  <a routerLink="register">Register</a>
-            </div>
-
+                <a routerLink="register">Register</a>
+            </form>
         </div>
 
     </div>
+
+</div>

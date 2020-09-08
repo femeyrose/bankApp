@@ -22,6 +22,9 @@ export class RegisterComponent implements OnInit {
     pin: ['', [Validators.required]]
   });
 
+  //name,acno etc should be same as that given in the formControlName in html
+
+
   //validators can been taken from angular
   //validators.required only check whether any empty fields exists
 
@@ -35,12 +38,16 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void { }
 
   getError(field){
-    return this.registerForm.get(field).errors
+    //return this.registerForm.get(field).errors
+    return(this.registerForm.get(field).touched||this.registerForm.get(field).dirty)&& this.registerForm.get(field).errors;
+  //this is to appear form without any invalid highlights under each fields before entering any data
+  //the error appears only if touch and skip the field
+  
   }
 
   //for giving the validation checking in multiple times  like below if condition
   // we use this get Error, which takes pin,pwd, accno, name for validation check
-  // in the getError(field), field takes the values (pin,name,pwd,acno)
+  // in the getError(field), field takes the values (pin,name,pwd,acno) that we given in the getError('acno') in the html
 
   register() {
     //console.log(this.registerForm.value)

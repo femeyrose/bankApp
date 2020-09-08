@@ -20,7 +20,10 @@
         <!-- conditional ngIf shows only when the condition is false, ngIf is a directive -->
         <!-- instead of giving this check using the if condition check of the name, commonly we can use getError -->
     <div *ngIf="getError('name')" class=error>Name is invalid</div>
-    </div>
+    <!-- the values  eg: ('name') are passed in a single cots to take the string as such that we entered -->
+    <!-- if we pass the values without using the single cots it take as variable which is not present -->
+
+</div>
 
             <div class="form-group">
 
@@ -28,6 +31,7 @@
 
                 <input formControlName="acno" name="acno" type="text" class="form-control" id="accno">
                 <div *ngIf="getError('acno')" class=error>acno is invalid</div>
+            <!-- ngIf check the condition and if the condition is true it will show the value 'acno is invalid' -->
             </div>
             <div class="form-group">
 
@@ -48,7 +52,7 @@
 
             <button type="submit" class="btn btn-primary" >Submit</button>
 
-            <!-- to give link to navigate to the dashboard ortherwise we can import router and use navigaeByUrl-->
+            <!-- to give link to navigate to the dashboard ortherwise we can import router and use navigateByUrl-->
 
             <a routerLink="">Back to Login</a>
         </form>
