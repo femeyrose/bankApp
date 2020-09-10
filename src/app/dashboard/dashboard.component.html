@@ -1,30 +1,75 @@
 <h1>Welcome {{dataService.currentUser.name}}</h1>
+
     <div class="container">
         
         <div class="row">
             
-            <div class="col"> 
+            <div class="col-6"> 
+                <form [formGroup]="depositForm" (ngSubmit)=deposit()>
                 <h4 id="depo">Deposit</h4>
                 <table>
 
                     <tr>
                         <td>accno</td>
-                        <td><input (change)="acnoChange($event)" type="text" id="acno"></td>
+                        <!-- <td><input (change)="acnoChange($event)" type="text" id="acno"></td> -->
+                        <td><input formControlName="acno" type="text" id="acno"></td>
+                        <div *ngIf="getError('acno')" class=error>acno is invalid</div>
                     </tr>
 
                     <tr>
                         <td>pin</td>
-                        <td><input (change)="pinChange($event)" type="text" id="pin"></td>
+                        <!-- <td><input (change)="pinChange($event)" type="text" id="pin"></td> -->
+                        <td><input formControlName="pin" type="text" id="acno"></td>
+                        <div *ngIf="getError('pin')" class=error>pin is invalid</div>
                     </tr>
                     <tr>
                         <td>amount</td>
-                        <td><input (change)="amtChange($event)" type="text" id="amount"></td>
+                        <!-- <td><input (change)="amtChange($event)" type="text" id="amount"></td> -->
+                        <td><input formControlName="amt" type="text" id="acno"></td>
+                        <div *ngIf="getError('amt')" class=error>amt is invalid</div>
                     </tr>
                     <tr>
-                        <td><button type="button" class="btn btn-primary" (click)="deposit()" value="proceed">Proceed</button>
+                        <td><button type="submit" class="btn btn-primary" value="proceed">Proceed</button>
                         </td></tr>
 
                 </table>
+            </form>
+
+            </div>
+
+
+
+
+            <div class="col-6"> 
+                <form [formGroup]="withdrawForm" (ngSubmit)=withdraw()>
+                <h4 id="depo">WithDraw</h4>
+                <table>
+
+                    <tr>
+                        <td>accno</td>
+                        <!-- <td><input (change)="acnoChange($event)" type="text" id="acno"></td> -->
+                        <td><input formControlName="acno" type="text" id="acno"></td>
+                        <div *ngIf="getError1('acno')" class=error>acno is invalid</div>
+                    </tr>
+
+                    <tr>
+                        <td>pin</td>
+                        <!-- <td><input (change)="pinChange($event)" type="text" id="pin"></td> -->
+                        <td><input formControlName="pin" type="text" id="acno"></td>
+                        <div *ngIf="getError1('pin')" class=error>pin is invalid</div>
+                    </tr>
+                    <tr>
+                        <td>amount</td>
+                        <!-- <td><input (change)="amtChange($event)" type="text" id="amount"></td> -->
+                        <td><input formControlName="amt" type="text" id="acno"></td>
+                        <div *ngIf="getError1('amt')" class=error>amt is invalid</div>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" class="btn btn-primary" value="proceed">Proceed</button>
+                        </td></tr>
+
+                </table>
+            </form>
 
             </div>
 

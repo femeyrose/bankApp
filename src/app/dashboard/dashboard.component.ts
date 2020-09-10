@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../service/data.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,9 +20,23 @@ export class DashboardComponent implements OnInit {
   pin = ""
   amt = ""
 
+  depositForm = this.fb.group({
+    acno: ['', [Validators.required]],
+    pin: ['', [Validators.required]],
+    amt: ['', [Validators.required]]
+
+  });
+
+  withdrawForm = this.fb.group({
+    acno: ['', [Validators.required]],
+    pin: ['', [Validators.required]],
+    amt: ['', [Validators.required]]
+
+  });
 
 
-  constructor(public dataService:DataService) { }
+  constructor(public dataService: DataService,
+    private fb: FormBuilder) { }
 
   acnoChange(event) {
     this.acno = event.target.value;
@@ -35,23 +50,55 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  //for deposit
 
-  deposit() {
-    var pinnum = this.pin
-    var amt2 = Number(this.amt)
-    var acno2 = this.acno
-    let data = this.dataService.details;
-
-    if (acno2 in data) {
-      var pin1 = data[acno2].pin
-      if (pinnum == pin1) {
-        data[acno2].balance += amt2
-        alert("credicted")
-        alert(data[acno2].balance)
-
-      }
-    }
+  getError(field) {
+    return (this.depositForm.get(field).touched || this.depositForm.get(field).dirty) && this.depositForm.get(field).errors;
   }
 
-}
+  deposit() {
 
+    if (this.depositForm.valid) {
+      const result = this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt);
+      if (result) {
+        alert("credicted and your balance is" +this.dataService.currentUser.balance) 
+        
+      }
+      else {
+        alert("check your pin number")
+      }
+    }
+    else
+    {
+      alert("form is invalid")
+    }
+
+  }
+
+  //for withdraw
+
+  getError1(field) {
+    return (this.withdrawForm.get(field).touched || this.withdrawForm.get(field).dirty) && this.withdrawForm.get(field).errors;
+  }
+
+  withdraw() {
+
+    if (this.withdrawForm.valid) {
+      const result = this.dataService.withdraw(this.withdrawForm.value.acno, this.withdrawForm.value.pin, this.withdrawForm.value.amt);
+      if (result) {
+        alert("debicted and your balance is " +this.dataService.currentUser.balance)  
+      }
+      
+      else{
+        alert("insufficient balance or your pin is invalid")
+      }
+    }
+    else
+    {
+      alert("form is invalid")
+    }
+
+  }
+
+
+}

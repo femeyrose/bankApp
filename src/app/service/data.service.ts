@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { LoginComponent } from '../login/login.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class DataService {
 
   }
 
-  constructor() { }
+  constructor(private router: Router) { }
   currentUser;
 
   register(name, acno, pin, pwd) {
@@ -32,7 +33,7 @@ export class DataService {
       name,
       acno,
       pin,
-      password: pwd,
+      password:pwd,
       balance: 0
     }
     console.log("after", this.details)
@@ -51,10 +52,50 @@ var data=this.details;
   if (acno in data) {
     var pwd=data[acno].password
     if (pwd==password){
+      
       this.currentUser=data[acno];
       return true;
     }
 
 }
 }
+
+
+deposit(acno2,pin2,amt2) {
+  var pin = parseInt(pin2)
+  var amt= Number(amt2)
+  
+  var acno = acno2
+  let data = this.details;
+
+  if (acno in data) {
+    var pin1 = data[acno].pin
+   
+    if (pin == pin1) {
+     data[acno].balance += amt
+     this.currentUser=data[acno]
+     return true; 
+  }
+  }
+}
+
+withdraw(acno2,pin2,amt2) {
+  var pin = parseInt(pin2)
+  var amt= Number(amt2)
+  
+  var acno = acno2
+  let data = this.details;
+
+  if (acno in data) {
+    var pin1 = data[acno].pin
+   
+    if (pin == pin1 && amt < data[acno].balance) {
+     
+     data[acno].balance -= amt 
+     this.currentUser=data[acno]
+     return true;    
+  }
+  }
+}
+
 }
