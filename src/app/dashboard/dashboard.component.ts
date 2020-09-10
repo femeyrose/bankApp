@@ -60,12 +60,13 @@ export class DashboardComponent implements OnInit {
 
     if (this.depositForm.valid) {
       const result = this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt);
-      if (result) {
-        alert("credicted and your balance is" +this.dataService.currentUser.balance) 
-        
+      if (result.status==true) {
+        //alert("credicted and your balance is" +this.dataService.currentUser.balance) 
+        alert(result.message);
+        alert(result.balance);
       }
       else {
-        alert("check your pin number")
+        alert(result.message)
       }
     }
     else
@@ -85,12 +86,13 @@ export class DashboardComponent implements OnInit {
 
     if (this.withdrawForm.valid) {
       const result = this.dataService.withdraw(this.withdrawForm.value.acno, this.withdrawForm.value.pin, this.withdrawForm.value.amt);
-      if (result) {
-        alert("debicted and your balance is " +this.dataService.currentUser.balance)  
+      if (result.status==true) {
+        alert(result.message)  ;
+        alert(result.balance)
       }
       
       else{
-        alert("insufficient balance or your pin is invalid")
+        alert(result.message)
       }
     }
     else

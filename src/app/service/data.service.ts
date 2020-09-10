@@ -16,10 +16,40 @@ export class DataService {
 
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {this.getDetails() }
+
+  //for the first loading, the details above will be taken, after 
+  //each execution and saveDetails(), these will be taken in the getDetails() when the page is loaded
+  //bcz it is defined in the constructor
+
   currentUser;
 
-  register(name, acno, pin, pwd) {
+saveDetails(){
+localStorage.setItem("details",JSON.stringify(this.details));
+
+if(this.currentUser){
+localStorage.setItem("currentUser",JSON.stringify(this.currentUser));
+  }
+}
+
+  getDetails(){
+    if(localStorage.getItem("details")){
+    this.details=JSON.parse(localStorage.getItem("details"));
+    }
+    if(localStorage.getItem("currentUser")){
+    this.currentUser=JSON.parse(localStorage.getItem("currentUser"));
+  }
+}
+
+  //we can store items in local Storage,it stores (key,value)
+  //we have to store the acc details, here text/string is stored
+  //to store the all objects full we use JSON.stringify and all these are stored in each fn
+  //same key is used to get the items , we use getDetails()
+//ie, every change we call saveDetails(), whenever these are done we call getDetails() which is defined in the constructor, all the saved details are taken using getDetails()
+ //localStorage is the memeory given by the browser in the 5th memory, it has no expiry 
+//saveDetails will store each new entry (value) in the 'details' key
+
+register(name, acno, pin, pwd) {
     if (acno in this.details) {
       alert("acc num already exists. Please login")
       return false; //return false when register fn is called from the register.ts
@@ -37,6 +67,7 @@ export class DataService {
       balance: 0
     }
     console.log("after", this.details)
+    this.saveDetails();
     return true;
   }
 
@@ -54,6 +85,7 @@ var data=this.details;
     if (pwd==password){
       
       this.currentUser=data[acno];
+      this.saveDetails();
       return true;
     }
 
@@ -73,8 +105,21 @@ deposit(acno2,pin2,amt2) {
    
     if (pin == pin1) {
      data[acno].balance += amt
-     this.currentUser=data[acno]
-     return true; 
+    //  this.currentUser=data[acno]
+    //  return true; 
+    this.saveDetails();
+
+    return{
+      status:true,
+      message:'account has been credicted',
+      balance:data[acno].balance
+    }
+
+  }
+  else{
+    return{
+      message:'invalid account'
+    }
   }
   }
 }
@@ -88,13 +133,31 @@ withdraw(acno2,pin2,amt2) {
 
   if (acno in data) {
     var pin1 = data[acno].pin
+    if (data[acno].balance<amt){
+      return{
+        status:false,
+        message:'insufficient balance',
+        balance:data[acno].balance
+      }  
+    }
    
-    if (pin == pin1 && amt < data[acno].balance) {
+    else if (pin == pin1) {
      
      data[acno].balance -= amt 
      this.currentUser=data[acno]
-     return true;    
+     this.saveDetails();
+     return{
+      status:true,
+      message:'account has been debicted',
+      balance:data[acno].balance
+    }   
   }
+  else{
+    return{
+      message:'invalid account'
+    }
+  }
+
   }
 }
 
