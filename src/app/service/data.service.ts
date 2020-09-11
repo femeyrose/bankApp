@@ -8,13 +8,16 @@ import { Router } from '@angular/router';
 })
 export class DataService {
   details = {
-    1001: { name: "user1", acno: 1001, pin: 1001, password: 1234, balance: 1000 },
-    1002: { name: "user2", acno: 1002, pin: 1002, password: 1235, balance: 1000 },
-    1003: { name: "user3", acno: 1003, pin: 1003, password: 1236, balance: 1000 },
-    1004: { name: "user4", acno: 1004, pin: 1004, password: 1237, balance: 1000 },
-    1005: { name: "user5", acno: 1005, pin: 1005, password: 1238, balance: 1000 },
+    1001: { name: "user1", acno: 1001, pin: 1001, password: 1234, balance: 1000,transactions:[] },
+    1002: { name: "user2", acno: 1002, pin: 1002, password: 1235, balance: 1000,transactions:[] },
+    1003: { name: "user3", acno: 1003, pin: 1003, password: 1236, balance: 1000,transactions:[] },
+    1004: { name: "user4", acno: 1004, pin: 1004, password: 1237, balance: 1000 ,transactions:[]},
+    1005: { name: "user5", acno: 1005, pin: 1005, password: 1238, balance: 1000,transactions:[] },
 
   }
+
+  //we have added the transactions array to push the details after each transactions
+  //like {amount:100, type:Credicted}
 
   constructor(private router: Router) {this.getDetails() }
 
@@ -32,10 +35,18 @@ localStorage.setItem("currentUser",JSON.stringify(this.currentUser));
   }
 }
 
+getTransactions(){
+  return this.details[this.currentUser.acno].transactions
+}
+
   getDetails(){
     if(localStorage.getItem("details")){
     this.details=JSON.parse(localStorage.getItem("details"));
     }
+
+    //for the first time the above will be commented, to have the
+    //first transactions
+
     if(localStorage.getItem("currentUser")){
     this.currentUser=JSON.parse(localStorage.getItem("currentUser"));
   }
@@ -64,7 +75,8 @@ register(name, acno, pin, pwd) {
       acno,
       pin,
       password:pwd,
-      balance: 0
+      balance: 0,
+      transactions:[]
     }
     console.log("after", this.details)
     this.saveDetails();
@@ -105,6 +117,15 @@ deposit(acno2,pin2,amt2) {
    
     if (pin == pin1) {
      data[acno].balance += amt
+
+     data[acno].transactions.push({
+       amount:amt,
+       type:'Credicted'
+     })
+//the transactions push should be given before save and return 
+// to take the values to its array before it is done
+
+
     //  this.currentUser=data[acno]
     //  return true; 
     this.saveDetails();
@@ -145,12 +166,19 @@ withdraw(acno2,pin2,amt2) {
      
      data[acno].balance -= amt 
      this.currentUser=data[acno]
+
+     data[acno].transactions.push({
+      amount:amt,
+      type:'Debited'
+    })  
+
      this.saveDetails();
      return{
       status:true,
       message:'account has been debicted',
       balance:data[acno].balance
-    }   
+    } 
+    
   }
   else{
     return{
@@ -162,3 +190,5 @@ withdraw(acno2,pin2,amt2) {
 }
 
 }
+
+

@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   amt = ""
 
   depositForm = this.fb.group({
-    acno: ['', [Validators.required]],
+    acno: ['', [Validators.required,Validators.pattern("[0-9]*$")]],
     pin: ['', [Validators.required]],
     amt: ['', [Validators.required]]
 
