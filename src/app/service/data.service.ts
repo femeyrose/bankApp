@@ -192,3 +192,6 @@ withdraw(acno2,pin2,amt2) {
 }
 
 
+
+//git hub clone (bankApp) of sibin sir
+//http://github.com/sibin387/bankingapp-angular.git
