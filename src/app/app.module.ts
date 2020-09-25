@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { TransactionsComponent } from './transactions/transactions.component';
-
+import { HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -23,7 +23,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

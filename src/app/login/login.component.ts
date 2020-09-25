@@ -47,27 +47,55 @@ export class LoginComponent implements OnInit {
     return (this.loginForm.get(field).touched || this.loginForm.get(field).dirty) && this.loginForm.get(field).errors;
   }
   //now the below method is template referencing
+
   login() {
     if (this.loginForm.valid) {
-      const result = this.dataService.login(this.loginForm.value.acno, this.loginForm.value.pwd);
-      //first the login fn will be called while entering the acno,pwd values
-      //the above login() is called
-      //the login() in the data.services.ts is called when the const result step is reached
-      //atfer seeing the return true statement in the data.service.ts , it will return the control to 
-      //the next line below (if (result))
-      
-      if (result) {
-        alert("login succesfull");
-        this.router.navigateByUrl("dashboard")
-      }
-      else{
-        alert("invalid credentials")
-      }
+  this.dataService.login(this.loginForm.value.acno, this.loginForm.value.pwd)
+  
+  .subscribe((data:any)=>{
+    if(data){
+      localStorage.setItem("name",data.name)
+      //storing to local storage
+     alert("login succesfull");
+     this.router.navigateByUrl("dashboard");
     }
     else
     {
+      alert("invalid credentials")
+    }
+  },
+ (data)=>{
+    alert(data.error.message)
+  })
+}
+  else
+    {
       alert("form is invalid")
     }
+  }
+}
+
+
+    // if (this.loginForm.valid) {
+    //   const result = this.dataService.login(this.loginForm.value.acno, this.loginForm.value.pwd);
+    //   //first the login fn will be called while entering the acno,pwd values
+    //   //the above login() is called
+    //   //the login() in the data.services.ts is called when the const result step is reached
+    //   //atfer seeing the return true statement in the data.service.ts , it will return the control to 
+    //   //the next line below (if (result))
+      
+    //   if (result) {
+    //     alert("login succesfull");
+    //     this.router.navigateByUrl("dashboard")
+    //   }
+    //   else{
+    //     alert("invalid credentials")
+    //   }
+    
+    // else
+    // {
+    //   alert("form is invalid")
+    // }
         // var acno = parseInt(this.loginForm.value.acno)
         // //parseInt is to avoid the string input declaration above (in the try catch)
         // var pass = this.loginForm.value.pwd
@@ -95,7 +123,7 @@ export class LoginComponent implements OnInit {
         //   }
         // }
 
-  // 
+  
 
-  }
-}
+  
+

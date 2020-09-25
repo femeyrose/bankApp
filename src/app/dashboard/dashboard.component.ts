@@ -34,9 +34,10 @@ export class DashboardComponent implements OnInit {
 
   });
 
-
+name="";
   constructor(public dataService: DataService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) 
+    { this.name=localStorage.getItem("name")}
 
   acnoChange(event) {
     this.acno = event.target.value;
@@ -59,15 +60,28 @@ export class DashboardComponent implements OnInit {
   deposit() {
 
     if (this.depositForm.valid) {
-      const result = this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt);
-      if (result.status==true) {
-        //alert("credicted and your balance is" +this.dataService.currentUser.balance) 
-        alert(result.message);
-        alert(result.balance);
+    this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt)
+    .subscribe((data=>{
+      if(data){
+        localStorage.setItem(data.name)
+        //storing to local storage
+       alert("login succesfull");
+      
       }
-      else {
-        alert(result.message)
+      else
+      {
+        alert("invalid credentials")
       }
+    }
+      // const result = this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt);
+      // if (result.status==true) {
+      //   //alert("credicted and your balance is" +this.dataService.currentUser.balance) 
+      //   alert(result.message);
+      //   alert(result.balance);
+      // }
+      // else {
+      //   alert(result.message)
+      // }
     }
     else
     {

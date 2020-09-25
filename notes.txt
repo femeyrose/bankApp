@@ -1,0 +1,23 @@
+http client is used to create http requests 
+this is like in postman we use modules for the requests
+so http client is the angular module
+
+we have imported the http client module in app.module.ts firstchanges are made in register.ts and data.services .ts
+
+
+.subscribe is an observable just like .then (.then is a promise)
+we have to subscribe the observable.
+in the first part of subscribe we get success, and in the second part we get the error msg
+promise- gives only one result
+but observable-multiple result
+
+cors- browser feature
+this is security feature
+we have run the browser runs at 4200
+first time when the browser runs, chrome will not allow to run to port 3000
+server should say to run the from 4200 to 3000
+for that we need to allow cors in the server
+this should be mention in index.js of express
+
+note: in the failure cases eg:in register -acc already exits, we need the status code 422 (given as data.error.message)
+we connect to the bank end to front end angular, we can see the message in the browser which is coded in the backend
