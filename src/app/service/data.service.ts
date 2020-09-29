@@ -4,6 +4,16 @@ import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
 import { HttpClient} from '@angular/common/http';
 
+const options={
+  withCredentials:true
+}
+//to set cookies/authentication
+//to send and save cookies
+//we have set this options except login and register
+//otherwise message "please login" will appear
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,8 +47,15 @@ export class DataService {
     }
   }
 getTransactions(){
-  return this.details[this.currentUser.acno].transactions
-  }
+ // return this.details[this.currentUser.acno].transactions
+  return this.http.get("http://localhost:3000/transactions",options)
+
+}
+deleteTransaction(id)
+{
+  return this.http.get("http://localhost:3000/transactions"+id,options)
+
+}
 
   getDetails() {
     if (localStorage.getItem("details")) {
@@ -94,6 +111,7 @@ return this.http.post("http://localhost:3000/register",data)
     // this.saveDetails();
     // return true;
   }
+  
 
 
   //this is to share the data services 
@@ -105,7 +123,7 @@ return this.http.post("http://localhost:3000/register",data)
     //var data = this.details;
 const data ={acno,password}
 
-return this.http.post("http://localhost:3000/login",data)
+return this.http.post("http://localhost:3000/login",data,options)
     // if (acno in data) {
     //   var pwd = data[acno].password
     //   if (pwd == password) {
@@ -125,7 +143,10 @@ return this.http.post("http://localhost:3000/login",data)
 
     var acno = acno2
     const data={acno,pin,amt};
-    return this.http.post("http://localhost:3000/deposit",data)
+    // note: the parameters given in const data should be same that given in the postman
+
+
+    return this.http.post("http://localhost:3000/deposit",data,options)
 
     //let data = this.details;
 
@@ -169,7 +190,15 @@ return this.http.post("http://localhost:3000/login",data)
     var acno = acno2
    
     const data={acno,pin,amt};
-    return this.http.post("http://localhost:3000/deposit",data)
+    return this.http.post("http://localhost:3000/withdraw",data,options)
+  }
+
+}
+
+
+
+
+
 
   //   let data = this.details;
 
@@ -208,9 +237,7 @@ return this.http.post("http://localhost:3000/login",data)
   //     }
 
   //   }
-  }
-
-}
+ 
 
 
 

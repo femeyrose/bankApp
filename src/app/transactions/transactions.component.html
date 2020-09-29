@@ -14,9 +14,14 @@
 
             <tr *ngFor="let transaction of transactions">
                 <!--this is like a for loop, after every transactions the amount, type will be stored in 'transaction' array  -->
+                
+                <td>{{transaction._id}}</td>
                 <td>{{transaction.amount}}</td>
-                <td>{{transaction.type}}</td>
-            </tr>
+                <!-- <td>{{transaction.type}}</td> -->
+                <td>{{transaction.typeOfTransaction}}</td>
+            <!-- changed to typeOfTransaction bcz it is given like this in backend -->
+            <button><td (click)="delete(Transaction)">delete</td></button>
+        </tr>
             
         </tbody>
 

@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   amt = ""
 
   depositForm = this.fb.group({
-    acno: ['', [Validators.required,Validators.pattern("[0-9]*$")]],
+    acno: ['', [Validators.required, Validators.pattern("[0-9]*$")]],
     pin: ['', [Validators.required]],
     amt: ['', [Validators.required]]
 
@@ -34,10 +34,10 @@ export class DashboardComponent implements OnInit {
 
   });
 
-name="";
+  name = "";
   constructor(public dataService: DataService,
-    private fb: FormBuilder) 
-    { this.name=localStorage.getItem("name")}
+    private fb: FormBuilder) { this.name = localStorage.getItem("name") }
+  //getting name from local storage for displaying in the web page (welcome <user name>)
 
   acnoChange(event) {
     this.acno = event.target.value;
@@ -60,61 +60,81 @@ name="";
   deposit() {
 
     if (this.depositForm.valid) {
-    this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt)
-    .subscribe((data=>{
-      if(data){
-        localStorage.setItem(data.name)
-        //storing to local storage
-       alert("login succesfull");
-      
-      }
-      else
-      {
-        alert("invalid credentials")
-      }
+      this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt)
+        .subscribe((data:any) => {
+          if (data) {
+            alert(data.message);
+            alert(data.balance);
+          }
+          else {
+            alert("'invalid account'")
+          }
+        },
+          (data) => {
+            alert(data.error.message)
+          })
     }
-      // const result = this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt);
+    else {
+      alert("form is invalid")
+    }
+  }
+
+  
+//this is a time consuming process
+
+// const result = this.dataService.deposit(this.depositForm.value.acno, this.depositForm.value.pin, this.depositForm.value.amt);
+// if (result.status==true) {
+//   //alert("credicted and your balance is" +this.dataService.currentUser.balance) 
+//   alert(result.message);
+//   alert(result.balance);
+// }
+// else {
+//   alert(result.message)
+// }
+//   }
+//   else
+//   {
+//     alert("form is invalid")
+//   }
+
+
+
+//for withdraw
+
+getError1(field) {
+  return (this.withdrawForm.get(field).touched || this.withdrawForm.get(field).dirty) && this.withdrawForm.get(field).errors;
+}
+
+withdraw() {
+
+  if (this.withdrawForm.valid) {
+    this.dataService.withdraw(this.withdrawForm.value.acno, this.withdrawForm.value.pin, this.withdrawForm.value.amt)
+      // const result = this.dataService.withdraw(this.withdrawForm.value.acno, this.withdrawForm.value.pin, this.withdrawForm.value.amt);
       // if (result.status==true) {
-      //   //alert("credicted and your balance is" +this.dataService.currentUser.balance) 
-      //   alert(result.message);
-      //   alert(result.balance);
+      //   alert(result.message)  ;
+      //   alert(result.balance)
       // }
-      // else {
+
+      // else{
       //   alert(result.message)
       // }
-    }
-    else
-    {
-      alert("form is invalid")
-    }
-
+      .subscribe((data: any) => {
+        if (data) {
+          alert(data.message);
+          alert(data.balance)
+        }
+        else {
+          alert("'invalid account'")
+        }
+      },
+        (data) => {
+          alert(data.error.message)
+        })
+  }
+  else {
+    alert("form is invalid")
   }
 
-  //for withdraw
-
-  getError1(field) {
-    return (this.withdrawForm.get(field).touched || this.withdrawForm.get(field).dirty) && this.withdrawForm.get(field).errors;
-  }
-
-  withdraw() {
-
-    if (this.withdrawForm.valid) {
-      const result = this.dataService.withdraw(this.withdrawForm.value.acno, this.withdrawForm.value.pin, this.withdrawForm.value.amt);
-      if (result.status==true) {
-        alert(result.message)  ;
-        alert(result.balance)
-      }
-      
-      else{
-        alert(result.message)
-      }
-    }
-    else
-    {
-      alert("form is invalid")
-    }
-
-  }
-
+}
 
 }

@@ -9,11 +9,29 @@ import { createDirective } from '@angular/compiler/src/core';
 })
 export class TransactionsComponent implements OnInit {
   transactions=[];
-
   constructor(private dataService:DataService) { 
-    this.transactions=dataService.getTransactions();
-    console.log(this.transactions);
+    this.getTransactions();
   }
+
+    getTransactions(){
+    //this.transactions=dataService.getTransactions();
+    //console.log(this.transactions);
+  this.dataService.getTransactions()
+.subscribe((data:any)=>{
+  this.transactions=data.transactions;
+})
+}
+
+delete(transaction){
+  this.dataService.deleteTransaction(transaction._id)
+  .subscribe((data:any)=>{
+    alert(data.message)
+    this.getTransactions();
+  })
+}
+
+
+  
 
   ngOnInit(): void {
   }
