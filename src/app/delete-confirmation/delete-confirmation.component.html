@@ -1,0 +1,6 @@
+<div *ngIf="id" class="delete-confirm">
+    <!-- this ngIf is for, when the user click on the delete button against its transaction only the below message appears -->
+<p class="delete">Are you sure you want to delete transaction with id {{id}}? </p>
+<button (click)="delete()">Delete</button>
+<button (click)="cancel()">Cancel</button>
+</div>

@@ -53,7 +53,7 @@ getTransactions(){
 }
 deleteTransaction(id)
 {
-  return this.http.get("http://localhost:3000/transactions"+id,options)
+  return this.http.delete("http://localhost:3000/transactions/"+id,options)
 
 }
 

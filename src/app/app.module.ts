@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { HttpClientModule} from '@angular/common/http';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HttpClientModule} from '@angular/common/http';
     LoginComponent,
     DashboardComponent,
     RegisterComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,

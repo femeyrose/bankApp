@@ -23,3 +23,29 @@ note: in the failure cases eg:in register -acc already exits, we need the status
 we connect to the bank end to front end angular, we can see the message in the browser which is coded in the backend
 
 
+component interaction
+=============================
+we have created a component (ng g c deleteConfirmation) for this
+used the selector of deleteConfirmation (in its ts file) in the transactions.html for using it
+
+since delete selector is inside the transaction, transaction is parent and delete is child
+
+'transactions' is a parent component and 'deleteConfirmation' is its child component
+to display- are you want to delete <id> ?, we define @input in delete-confirmation.ts
+@Input is a decorator in Angular 
+we take the data from child component using @Input and passes it to the child component (we passes id to child from parent using @input id:string)
+we have used this id in the transactions.html and pass this to the child's html (delete.html) as {{id}}
+pages are passed using services
+
+data (id) is passed from parent to child-we use @Input decorator
+
+if we pass from child to parent- @output decorator
+
+when the delete button (given in child) is clicked, alert message appears (with id (id is an event here) taken from child) this is using @output (from child to parent)
+
+(onDelete)="onDelete($event)" is used in transaction.html, when this is clicked, parent function is called (bcz onDelete($event) is defined in the transaction)
+
+
+whenever parent component changes it will affect the child also, they are binded
+
+why input output given in child component

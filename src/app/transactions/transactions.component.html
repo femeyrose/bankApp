@@ -5,12 +5,22 @@
 
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Amount </th>
-                
                 <th>Type</th>
             </tr>
         </thead>
         <tbody>
+            <app-delete-confirmation [id]="id" (onCancel)="onCancel($event)" (onDelete)="deleteTransaction($event)"></app-delete-confirmation>
+            <!-- emiited data from delete is listen here and call the fn deleteTransaction() -->
+            <!-- "id" is the id in transaction.ts, [id] is the id in child {{id}} in delete.html, which is passing to the child that is id near @Input-->
+           <!-- [id] is property bnding -->
+
+            <!-- <app-delete-confirmation (onDelete)="onDelete($event)" (onCancel)="onCancel($event)" [id]="idToBeDeleted"></app-delete-confirmation> -->
+             <!-- we can see the contents in the deleteConfirmation component -->
+             <!-- to pass the id we use square brackets -->
+             <!-- $event in onCancel is optional,since this is cancel not necessary to pass the event -->
+             <!--(onDelete) this name should be same as given in the delete component @output  -->
 
             <tr *ngFor="let transaction of transactions">
                 <!--this is like a for loop, after every transactions the amount, type will be stored in 'transaction' array  -->
@@ -20,7 +30,7 @@
                 <!-- <td>{{transaction.type}}</td> -->
                 <td>{{transaction.typeOfTransaction}}</td>
             <!-- changed to typeOfTransaction bcz it is given like this in backend -->
-            <button><td (click)="delete(Transaction)">delete</td></button>
+           <td><button class="btn btn-primary" (click)="delete(transaction._id)">Delete</button></td>
         </tr>
             
         </tbody>
