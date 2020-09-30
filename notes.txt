@@ -49,3 +49,41 @@ when the delete button (given in child) is clicked, alert message appears (with 
 whenever parent component changes it will affect the child also, they are binded
 
 why input output given in child component
+
+Angular Directivies
+========================
+ng g d directives/highlight 
+//custom created directive here is highlight
+
+component vs directives
+
+directives- has no html file,it has only ts file
+eg:to highlight any thing in a tag eg:transaction history, use selector in the transaction.html
+add ElementRef in the constructor of highlight.ts and import from @angular core
+ElementRef-element reference here h1 tag in transaction.html
+
+component is also a directive
+
+angular has 3 directives:
+1. components-these have templates
+2. attribute directive (changes given to the already existing ones)-element's appearance/behaviour can be changed eg:highlight attribute directive
+3. structural directives-changes the DOM ie, ngFor,ngIf will add/delete ie, changes the structure-elements can be added/deleted to the html
+eg:ngIf, if true-add the element to html
+false-delete the element from html
+
+main benefit of directives (highlight used here), we can reuse anywhere to change a particular tag color, size,alert/any other fuctionalities
+
+[ngClass],[ngStyle]- built in attribute directive in angular,so we can use this directly, no need of defining any where-conditionaly class can be enabled
+
+
+Animations in angular
+=================================
+ng g c animationDemo
+
+for having animations, we should give the details in @component decorator of animationDemo.ts
+
+
+
+
+
+

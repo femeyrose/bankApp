@@ -1,5 +1,11 @@
 <div class="container">
-    <h1>Transaction History</h1>
+    <h1 appHighlight>Transaction History</h1>
+    <!-- after using appHighlight we get the h1 tag in the constructor of highlight.ts and can modify the contents in this tag -->
+    
+    <app-animation-demo></app-animation-demo>
+    <!-- this is just to check the animation -->
+
+    
     <table>
 
 
@@ -22,9 +28,11 @@
              <!-- $event in onCancel is optional,since this is cancel not necessary to pass the event -->
              <!--(onDelete) this name should be same as given in the delete component @output  -->
 
-            <tr *ngFor="let transaction of transactions">
+            <tr [ngClass]="id==transaction._id? 'grey':'pink' " *ngFor="let transaction of transactions">
                 <!--this is like a for loop, after every transactions the amount, type will be stored in 'transaction' array  -->
-                
+                <!-- [ngClass]="id==transaction._id? 'grey':'grren' " will highlight the particular id, if true-grey, false-green -->
+                <!-- if the condition is in single cots ([ngClass]="id==transaction._id? 'grey':'') means nothing to do -->
+
                 <td>{{transaction._id}}</td>
                 <td>{{transaction.amount}}</td>
                 <!-- <td>{{transaction.type}}</td> -->

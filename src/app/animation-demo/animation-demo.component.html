@@ -1,0 +1,10 @@
+<div [@openClose]="isOpen? 'open':'closed'">
+    <!-- [@OpenClose] animation name is defined here, open and closed here are the states-->
+<!-- we have import animation module in app.module under the import section (BrowserAnimationsModule) -->
+
+
+<h1>I'm now {{isOpen? "Open":"Closed"}}</h1>
+<!-- if we click on the toggle button,open will print 'open' otherwise 'closed'  -->
+</div>
+
+<button (click)="toggle()">Toggle</button>
